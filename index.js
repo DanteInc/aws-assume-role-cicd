@@ -1,27 +1,18 @@
 #!/usr/bin/env node
 
 const AWS = require('aws-sdk');
+const argv = require('commander');
 
-const argv = require('yargs')
-  .option('role', {
-    alias: 'r',
-    describe: 'Role ARN to assume (env AWS_ROLE default)',
-    type: 'string',
-    default: process.env.AWS_ROLE
-  })
-  .option('duration', {
-    alias: 'd',
-    describe: 'Session length (30 miniute default)',
-    type: 'number',
-    default: process.env.AWS_SESSION_DURATION || 1800, // 30 minutes
-  })
-  .option('debug', {
-    alias: 'b',
-    type: 'boolean',
-    default: false,
-  })
-  .help()
-  .argv;
+argv
+  .option('-r --role [arn]',
+    'Role ARN to assume (env AWS_ROLE default)',
+    process.env.AWS_ROLE)
+  .option('-d --duration [seconds]',
+    'Session length (30 minute default)',
+    Number,
+    process.env.AWS_SESSION_DURATION || 1800)
+  .option('-b --debug')
+  .parse(process.argv);
 
 const assumeRole = (role, duration, debug) => {
   AWS.config.logger = debug ? process.stdout : undefined;
@@ -42,7 +33,7 @@ const assumeRole = (role, duration, debug) => {
 
 const run = (argv) => {
   const { role, duration, debug } = argv;
-  if (debug) console.log('args: %j', argv);
+  if (debug) console.log('args: ', JSON.stringify(argv, null, 2));
   if (!role) return Promise.resolve();
   return assumeRole(role, duration, debug);
 };
