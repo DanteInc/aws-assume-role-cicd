@@ -21,7 +21,7 @@ npm run dp:prd:e
 #### package.json
 ```
   "scripts": {
-    "dp:prd:e": "eval \"'assume-role' sls deploy -v -r us-east-1 -s prd --acct prod\""
+    "dp:prd:e": "eval \"$(assume-role) sls deploy -v -r us-east-1 -s prd --acct prod\""
   },
 ```
 
