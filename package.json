@@ -1,17 +1,19 @@
 {
-  "name": "aws-assume-role-cicd",
-  "version": "1.0.1",
-  "description": "CLI for assuming an AWS role in a CI/CD pipeline",
-  "author": "John Gilbert <john.gilbert@danteinc.com> (danteinc.com)",
+  "name": "aws-assume",
+  "version": "1.0.0",
+  "description": "CLI for assuming an AWS role in a terminal session",
+  "author": "Valiton GmbH",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DanteInc/aws-assume-role-cicd.git"
+    "url": "git+https://github.com/valiton/aws-assume-role-cicd.git"
   },
+  "files": [
+    "./index.js"
+  ],
   "keywords": [
     "aws",
     "cli",
-    "cicd",
     "assume-role",
     "authentication"
   ],
@@ -20,7 +22,7 @@
     "assume": "./index.js"
   },
   "dependencies": {
-    "aws-sdk": "2.393.0",
-    "commander": "2.19.0"
+    "aws-sdk": "^2.678.0",
+    "commander": "^5.1.0"
   }
 }
