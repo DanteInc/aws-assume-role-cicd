@@ -1,5 +1,5 @@
 {
-  "name": "aws-assume",
+  "name": "@valiton/aws-assume-role",
   "version": "1.0.0",
   "description": "CLI for assuming an AWS role in a terminal session",
   "author": "Valiton GmbH",
@@ -18,8 +18,7 @@
     "authentication"
   ],
   "bin": {
-    "assume-role": "./index.js",
-    "assume": "./index.js"
+    "assume-role": "./index.js"
   },
   "dependencies": {
     "aws-sdk": "^2.678.0",
