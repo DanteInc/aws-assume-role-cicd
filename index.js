@@ -5,7 +5,7 @@ const argv = require('commander');
 
 argv
   .option('-r --role [arn]',
-    'Role ARN to assume (env AWS_ROLE default)',
+    'Role(s) ARN to assume (env AWS_ROLE default)',
     process.env.AWS_ROLE)
   .option('-d --duration [seconds]',
     'Session length (30 minute default)',
@@ -32,9 +32,21 @@ const assumeRole = (role, duration, debug) => {
 };
 
 const run = (argv) => {
-  const { role, duration, debug } = argv;
+  let { role, duration, debug } = argv;
   if (debug) console.log('args: ', JSON.stringify(argv, null, 2));
   if (!role) return Promise.resolve();
+
+  const roles = role.split('|');
+  if (roles.length > 1) {
+    AWS.config.credentials = new AWS.TemporaryCredentials({
+      RoleArn: roles[0],
+      RoleSessionName: 'aws-assume-role-cicd',
+      DurationSeconds: duration,
+    },
+    AWS.config.credentials || new AWS.EC2MetadataCredentials());
+    role = roles[1];
+  }
+
   return assumeRole(role, duration, debug);
 };
 

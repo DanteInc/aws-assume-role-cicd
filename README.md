@@ -18,6 +18,11 @@ export AWS_ROLE=$PROD_AWS_ROLE
 npm run dp:prd:e
 ```
 
+Alternatively, provide two roles separated by a `|`, such as a jump role and an execution role.
+```
+export AWS_ROLE=$PROD_AWS_ROLE_JUMP|$PROD_AWS_ROLE_EXEC
+```
+
 #### package.json
 ```
   "scripts": {
