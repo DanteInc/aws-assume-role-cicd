@@ -1,6 +1,6 @@
 {
   "name": "aws-assume-role-cicd",
-  "version": "1.0.4",
+  "version": "2.0.0",
   "description": "CLI for assuming an AWS role in a CI/CD pipeline",
   "author": "John Gilbert <john.gilbert@danteinc.com> (danteinc.com)",
   "license": "MIT",
@@ -19,8 +19,12 @@
     "assume-role": "./index.js",
     "assume": "./index.js"
   },
+  "scripts": {
+    "test": "DEBUG=true node index.js -r 'arn:aws:iam::123456789012:role/role1|arn:aws:iam::123456789012:role/role2' -d 1600"
+  },
   "dependencies": {
-    "aws-sdk": "2.393.0",
-    "commander": "2.19.0"
+    "@aws-sdk/client-sts": "^3.525.0",
+    "@aws-sdk/credential-providers": "^3.525.0",
+    "commander": "12.0.0"
   }
 }
