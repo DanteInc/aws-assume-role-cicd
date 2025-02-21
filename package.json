@@ -1,6 +1,6 @@
 {
   "name": "aws-assume-role-cicd",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "CLI for assuming an AWS role in a CI/CD pipeline",
   "author": "John Gilbert <john.gilbert@danteinc.com> (danteinc.com)",
   "license": "MIT",

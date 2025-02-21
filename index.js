@@ -28,6 +28,9 @@ const run = (argv) => {
   if (process.env.DEBUG === 'true') console.log('args: ', JSON.stringify(argv, null, 2));
   if (!role) return Promise.resolve();
 
+  const logger = process.env.DEBUG === 'true' ? console : undefined;
+  const clientConfig = { logger };
+
   const roles = role.split('|');
   if (roles.length > 1) {
     credentials = fromTemporaryCredentials({
@@ -36,7 +39,8 @@ const run = (argv) => {
         RoleSessionName: 'aws-assume-role-cicd',
         DurationSeconds: duration,
       },
-      masterCredentials: fromNodeProviderChain(),
+      clientConfig,
+      masterCredentials: fromNodeProviderChain({ clientConfig }),
     });
     role = roles[1];
   }
@@ -48,7 +52,7 @@ const run = (argv) => {
   };
 
   const STS = new STSClient({
-    logger: process.env.DEBUG === 'true' ? console : undefined,
+    logger,
     credentials,
   });
 
