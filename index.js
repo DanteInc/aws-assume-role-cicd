@@ -14,6 +14,9 @@ program
   .option('-r --role [arn]',
     'Role(s) ARN to assume (env AWS_ROLE default)',
     process.env.AWS_ROLE)
+  .option('--region [region]',
+    'Region to contact (env AWS_REGION default)',
+    process.env.AWS_REGION)
   .option('-d --duration [seconds]',
     'Session length (30 minute default)',
     Number,
@@ -24,12 +27,12 @@ program
 program.parse();
 
 const run = (argv) => {
-  let { role, duration, credentials } = argv;
+  let { role, region, duration, credentials } = argv;
   if (process.env.DEBUG === 'true') console.log('args: ', JSON.stringify(argv, null, 2));
   if (!role) return Promise.resolve();
 
   const logger = process.env.DEBUG === 'true' ? console : undefined;
-  const clientConfig = { logger };
+  const clientConfig = { logger, region };
 
   const roles = role.split('|');
   if (roles.length > 1) {
@@ -53,6 +56,7 @@ const run = (argv) => {
 
   const STS = new STSClient({
     logger,
+    region,
     credentials,
   });
 
